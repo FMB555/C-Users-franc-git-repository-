@@ -2,9 +2,9 @@ package ElementoDeGuardado.Estatico;
 
 public interface ConjuntoTDA {
 	void InicializarConjunto();
-	int Elegir();
-	void Sacar(int x);
-	void Agregar(int x);
+	String Elegir();
+	void Sacar(String x);
+	void Agregar(String x);
 	boolean ConjuntoVacio();
-	boolean Pertenece(int x);
+	boolean Pertenece(String x);
 }

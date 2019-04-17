@@ -3,13 +3,13 @@ package MecanicasDeAlmacenamiento;
 import ElementoDeGuardado.Estatico.ConjuntoTDA;
 
 public class ConjuntoEstatico implements ConjuntoTDA{
-	private int[] vector;
+	private String[] vector;
 	private int ultimo;
 	public void InicializarConjunto() {
 		ultimo = 0;
-		vector = new int[100];
+		vector = new String[100];
 	}
-	public void Agregar(int x) {
+	public void Agregar(String x) {
 		if (!this.Pertenece(x)) {
 			vector[ultimo] = x;
 			ultimo++;
@@ -18,17 +18,17 @@ public class ConjuntoEstatico implements ConjuntoTDA{
 	public boolean ConjuntoVacio() {
 		return ultimo == 0;
 	}
-	public boolean Pertenece(int x) {
+	public boolean Pertenece(String x) {
 		int i = 0;
 		while (i < ultimo && vector[i]!= x) {
 			i++;
 		}
 		return i < ultimo;
 	}
-	public int Elegir() {
+	public String Elegir() {
 		return vector[ultimo - 1];
 	}
-	public void Sacar(int x) {
+	public void Sacar(String x) {
 		int i = 0;
 		while(i<ultimo && vector[i]!= x) {
 			i++;

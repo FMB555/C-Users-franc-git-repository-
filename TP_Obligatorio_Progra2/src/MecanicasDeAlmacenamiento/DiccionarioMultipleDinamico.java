@@ -4,56 +4,60 @@ import ElementoDeGuardado.Estatico.ConjuntoTDA;
 import ElementosDeGuardado.Dinamico.DiccionarioMultipleDinamicoTDA;
 
 public class DiccionarioMultipleDinamico implements DiccionarioMultipleDinamicoTDA{
+	
 	class Elemento{
-		int clave;
-		int[] valores;
+		String clave;
+		String[] valores;
 		int cantValores;
 	}
+	
 	Elemento[] elementos; 
 	int cantClaves;
+	
 	public void InicializarDiccionario() {
 		elementos = new Elemento[100]; 
 		cantClaves = 0; 
 	}
-	public void Agregar(int clave , int valor){ 
+	
+	public void Agregar(String clave , String valor){ 
 		int posC = Clave2Indice(clave);
 		if (posC==-1) { 
 			posC = cantClaves; 
 			elementos[posC]= new Elemento(); 
 			elementos[posC].clave = clave; 
 			elementos[posC].cantValores = 0; 
-			elementos[posC].valores = new int [100]; 
+			elementos[posC].valores = new String [100]; 
 			cantClaves++; 
 		}
 		Elemento e = elementos[posC]; 
 		int posV = Valor2Indice(e, valor); 
-		if (posV==-1) { 
+		if (posV == -1) { 
 			e.valores[e.cantValores] = valor;
 			e.cantValores++; 
 		}
 	}
-	private int Clave2Indice(int clave){ 
+	private int Clave2Indice(String clave){ 
 		int i = cantClaves-1; 	
 		while(i>=0 && elementos[i].clave!=clave) {
 			i--;  
 		}
 		return i;
 	}
-	public void Eliminar(int clave) { 
+	public void Eliminar(String clave) { 
 		int pos = Clave2Indice(clave); 
 		if (pos!=-1) { 
 			elementos[pos] = elementos[cantClaves -1]; 
 			cantClaves--; 
 		}
 	}
-	private int Valor2Indice(Elemento e, int valor) { 
+	private int Valor2Indice(Elemento e, String valor) { 
 		int i = e.cantValores -1; 
 		while(i>=0 && e.valores[i]!=valor) {
 			i--; 
 		}
 		return i;
 	}
-	public void EliminarValor(int clave , int valor) { 
+	public void EliminarValor(String clave , String valor) { 
 		int posC = Clave2Indice(clave); 
 		
 		if (posC!=-1) { 
@@ -68,7 +72,7 @@ public class DiccionarioMultipleDinamico implements DiccionarioMultipleDinamicoT
 			}
 		}
 	}
-	public ConjuntoTDA Recuperar(int clave) { 
+	public ConjuntoTDA Recuperar(String clave) { 
 		ConjuntoTDA c= new ConjuntoEstatico(); 
 		c.InicializarConjunto();
 		int pos = Clave2Indice(clave); 
@@ -86,5 +90,25 @@ public class DiccionarioMultipleDinamico implements DiccionarioMultipleDinamicoT
 			c.Agregar(elementos[i].clave); 
 			} 
 		return c;
-	} 
+	}
+
+	
+	/*ESTO HAY QUE BORRALO DESPUES*/
+	public void Imprimir() { 
+		int i =0;
+		while(i < cantClaves) {
+			System.out.print("CLAVE : " + this.elementos[i].clave + "\n" );
+			System.out.print("VALORES : \n");
+			 for(int j = 0; j < this.elementos[i].valores.length && this.elementos[i].valores[j] !=null;j++) {
+		        	System.out.print(this.elementos[i].valores[j] + ' ' );
+		        	System.out.print("\n");
+		        }
+			 i++;
+			 System.out.print("\n");
+		}
+
+	}
+
+
+	
 }
