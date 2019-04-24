@@ -1,5 +1,6 @@
 package App;
 
+import MecanicasDeAlmacenamiento.ConjuntoEstatico;
 import MecanicasDeAlmacenamiento.DiccionarioMultipleDinamico;
 import Metodos.File;
 
