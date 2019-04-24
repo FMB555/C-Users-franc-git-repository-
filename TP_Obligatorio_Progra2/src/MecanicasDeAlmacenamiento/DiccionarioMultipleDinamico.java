@@ -5,14 +5,14 @@ import ElementosDeGuardado.Dinamico.DiccionarioMultipleDinamicoTDA;
 
 public class DiccionarioMultipleDinamico implements DiccionarioMultipleDinamicoTDA{
 	
-	class Elemento{
-		String clave;
-		String[] valores;
-		int cantValores;
+	public class Elemento{
+		public String clave;
+		public String[] valores;
+		public int cantValores;
 	}
 	
-	Elemento[] elementos; 
-	int cantClaves;
+	public Elemento[] elementos;
+	public int cantClaves;
 	
 	public void InicializarDiccionario() {
 		elementos = new Elemento[100]; 

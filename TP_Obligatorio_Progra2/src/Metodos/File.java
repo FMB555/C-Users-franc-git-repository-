@@ -30,7 +30,7 @@ public class File {
 				FormatoB(diccionario, values, archivoNombre);
 				break;
 			default:
-				System.out.print("Formato no valiod, intentalo de nuevo.");
+				System.out.print("Formato no valido, intentalo de nuevo.");
 				break;
 		}
 	}
@@ -65,7 +65,7 @@ public class File {
 	}
 	
 	
-	public static void LeerArchvioCSV(DiccionarioMultipleDinamico diccionario, String archivo, String formato) {
+	public static void LeerArchvioCSVParaDiccionario(DiccionarioMultipleDinamico diccionario, String archivo, String formato) {
 		
 		BufferedReader br = null;
 		FileReader fr = null;
@@ -100,10 +100,57 @@ public class File {
 		listaDeArchivos = ObtenerListaDeArchivos();
 		for(int i = 0; i < listaDeArchivos.size();i++) {
 			archivo =  listaDeArchivos.get(i);
-			LeerArchvioCSV(diccionario , archivo, formato);
+			LeerArchvioCSVParaDiccionario(diccionario , archivo, formato);
 		}
 		
 		return diccionario;
+	}
+	
+	public static void LeerArchvioCSVParaPorcentaje(String archivo) {
+		
+		BufferedReader br = null;
+		FileReader fr = null;
+		String line = null;
+		String[] values = null;
+		String path = ObtenerPathDeCarpetaDeArchivos();
+		
+		try {
+			fr = new FileReader(path + archivo);
+			br = new BufferedReader(fr);
+			
+			int cantEstaciones = 0;
+			int cantEstacionesConTransferencia = 0;
+			
+			while ((line = br.readLine()) != null) {
+		        values = line.split(";");  
+		        
+		        if(values.length == 4) {
+		        	cantEstacionesConTransferencia++;
+		        }
+		        
+		        cantEstaciones++;
+		    }
+
+			float porcentaje = ((float)cantEstacionesConTransferencia/(float)cantEstaciones)*100;
+			System.out.println("La linea " + archivo + " tiene un " + (int)porcentaje + 
+								"% de estaciones con estaciones de transferencia");
+			
+			br.close();
+			
+		} catch (IOException e) {
+			System.out.print("No se encontro el archivo : " + archivo + "\n");
+		}
+	}
+	
+	//2-b
+	public static void MostrarPorcentajeEstacionesConTransferencia() {
+		ArrayList<String> listaDeArchivos;
+		String archivo;
+		listaDeArchivos = ObtenerListaDeArchivos();
+		for(int i = 0; i < listaDeArchivos.size();i++) {
+			archivo =  listaDeArchivos.get(i);
+			LeerArchvioCSVParaPorcentaje(archivo);
+		}
 	}
 	
 }
