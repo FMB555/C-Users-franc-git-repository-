@@ -102,10 +102,11 @@ public class File {
 	}
 	
 	private static void FormatoCombinacion(DiccionarioMultipleDinamico diccionario, String[] values, String nombre) {
-		diccionario.Agregar(nombre, ("(" + values[2]+ ";" +values[3] + ")"));
+			//	diccionario.Agregar(nombre, ("(" + values[2]+ ";" +values[3] + ")"));
+			diccionario.Agregar(values[3], nombre);
 	}
 	
 	private static void FormatoEstacion(DiccionarioMultipleDinamico diccionario, String[] values, String nombre) {
-		diccionario.Agregar(nombre, values[1]);
+		//diccionario.Agregar(nombre, values[1]);
 	}
 }

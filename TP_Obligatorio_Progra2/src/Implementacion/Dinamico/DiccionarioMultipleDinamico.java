@@ -34,11 +34,22 @@ public class DiccionarioMultipleDinamico implements DiccionarioMultipleDinamicoT
 				e.cantValores++; 
 			}
 		}
+		else
+		{
+			
+			for (int i = 0; i < this.cantClaves; i++) {
+				if(this.elementos[i].clave.compareTo(archivoNombre) == 0) {
+					this.elementos[i].valores[this.elementos[i].cantValores] = values;
+					this.elementos[i].cantValores++;
+				}
+			}
+			
+		}
 	}
 	
 	private boolean Pertenece(String archivoNombre , String values) {
-		ConjuntoTDA valoresExistente = this.Recuperar(archivoNombre);	
-		return !valoresExistente.Pertenece(values);
+		ConjuntoTDA valoresExistente = this.Claves();	
+		return !valoresExistente.Pertenece(archivoNombre);
 		
 	}
 	
