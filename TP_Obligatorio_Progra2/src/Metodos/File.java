@@ -11,37 +11,35 @@ public class File {
 	private static String NOMBRE_ARCHIVO_DE_CONFIGURACION = "Config.txt";
 	private static String PATH_NOMBRE_CARPETA_DE_ARCHIVOS = "\\src\\Archivos\\";
 	
-	private static void FormatoB(DiccionarioMultipleDinamico diccionario, String[] values, String archivoNombre) {
-		if(values.length == 4)	
-			diccionario.Agregar(archivoNombre, values[1]);
+	static class Elem{
+		String nombreArchivo;
+		String nombreDato;
 	}
-	
-	private static void FormatoA(DiccionarioMultipleDinamico diccionario, String[] values, String archivoNombre) {
-		diccionario.Agregar(archivoNombre, values[1]);
-	}
-	
-	private static void AgregarAlDiccionarioConFormato(DiccionarioMultipleDinamico diccionario, String[] values, String formato, String archivoNombre) {
+
+	public static void CargarDiccionario(DiccionarioMultipleDinamico diccionarioEstaciones, DiccionarioMultipleDinamico diccionarioCombinaciones)  {
 		
-		switch(formato) {
-			case "A":
-				FormatoA(diccionario, values, archivoNombre);
-				break;
-			case "B":
-				FormatoB(diccionario, values, archivoNombre);
-				break;
-			default:
-				System.out.print("Formato no valiod, intentalo de nuevo.");
-				break;
+	
+		
+		ArrayList<Elem> listaDeArchivos;
+		Elem archivo;
+		listaDeArchivos = ObtenerListaDeArchivos();
+		for(int i = 0; i < listaDeArchivos.size();i++) {
+			archivo =  listaDeArchivos.get(i);
+			LeerArchvioCSV(diccionarioEstaciones, diccionarioCombinaciones, archivo);
 		}
+
 	}
+	
 		
 	private static String ObtenerPathDeCarpetaDeArchivos() {
 		return System.getProperty("user.dir") + PATH_NOMBRE_CARPETA_DE_ARCHIVOS;
 	}
 	
 	
-	private static ArrayList<String> ObtenerListaDeArchivos(){
-		ArrayList<String> ListaConNombresDeArchivos = new ArrayList<String>();
+	private static ArrayList<Elem> ObtenerListaDeArchivos(){
+		ArrayList<Elem> ListaConNombresDeArchivos = new ArrayList<Elem>();
+		Elem aux;
+		String [] values;
 		FileReader fr;
 		BufferedReader br;
 		String path = ObtenerPathDeCarpetaDeArchivos();
@@ -53,7 +51,11 @@ public class File {
 			br = new BufferedReader(fr);
 			
 			while ((line = br.readLine()) != null) {
-				ListaConNombresDeArchivos.add(line.toString());
+				values = line.split(";");
+				aux = new Elem();
+				aux.nombreArchivo = values[0];
+				aux.nombreDato = values[1];
+				ListaConNombresDeArchivos.add(aux);
 			}
 		}
 		catch (IOException e)
@@ -65,7 +67,7 @@ public class File {
 	}
 	
 	
-	public static void LeerArchvioCSV(DiccionarioMultipleDinamico diccionario, String archivo, String formato) {
+	public static void LeerArchvioCSV(DiccionarioMultipleDinamico diccionarioEstaciones, DiccionarioMultipleDinamico diccionarioCombinaciones, Elem archivo) {
 		
 		BufferedReader br = null;
 		FileReader fr = null;
@@ -74,12 +76,12 @@ public class File {
 		String path = ObtenerPathDeCarpetaDeArchivos();
 		
 		try {
-			fr = new FileReader(path + archivo);
+			fr = new FileReader(path + archivo.nombreArchivo);
 			br = new BufferedReader(fr);
 			
 			while ((line = br.readLine()) != null) {
 		        values = line.split(";");
-		        AgregarAlDiccionarioConFormato(diccionario, values, formato, archivo);	        
+		        AgregarAlDiccionarioConFormato(diccionarioEstaciones, diccionarioCombinaciones, values, archivo);	        
 		    }
 			
 			br.close();
@@ -89,21 +91,21 @@ public class File {
 		}
 	}
 	
-	
-	public static DiccionarioMultipleDinamico CargarDiccionario(String formato)  {
+	private static void AgregarAlDiccionarioConFormato(DiccionarioMultipleDinamico diccionarioEstaciones, DiccionarioMultipleDinamico diccionarioCombinaciones, String[] values, Elem archivo) {
 		
-		DiccionarioMultipleDinamico diccionario = new DiccionarioMultipleDinamico();
-		diccionario.InicializarDiccionario();
-		
-		ArrayList<String> listaDeArchivos;
-		String archivo;
-		listaDeArchivos = ObtenerListaDeArchivos();
-		for(int i = 0; i < listaDeArchivos.size();i++) {
-			archivo =  listaDeArchivos.get(i);
-			LeerArchvioCSV(diccionario , archivo, formato);
+		if(values.length != 0) {
+				FormatoEstacion(diccionarioEstaciones, values, archivo.nombreDato);
+			if(values.length == 4) 
+				FormatoCombinacion(diccionarioCombinaciones, values, archivo.nombreDato);
 		}
 		
-		return diccionario;
 	}
 	
+	private static void FormatoCombinacion(DiccionarioMultipleDinamico diccionario, String[] values, String archivoNombre) {
+		diccionario.Agregar(archivoNombre, values[3]);
+	}
+	
+	private static void FormatoEstacion(DiccionarioMultipleDinamico diccionario, String[] values, String archivoNombre) {
+		diccionario.Agregar(archivoNombre, values[1]);
+	}
 }

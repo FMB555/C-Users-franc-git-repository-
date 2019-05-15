@@ -20,7 +20,7 @@ public class ConjuntoEstatico implements ConjuntoTDA{
 	}
 	public boolean Pertenece(String x) {
 		int i = 0;
-		while (i < ultimo && vector[i]!= x) {
+		while (i < ultimo && vector[i].compareTo(x) != 0) {
 			i++;
 		}
 		return i < ultimo;
@@ -30,7 +30,7 @@ public class ConjuntoEstatico implements ConjuntoTDA{
 	}
 	public void Sacar(String x) {
 		int i = 0;
-		while(i<ultimo && vector[i]!= x) {
+		while(i<ultimo && vector[i].compareTo(x)!= 0) {
 			i++;
 		}
 		if (i < ultimo) {
