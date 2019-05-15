@@ -1,4 +1,4 @@
-package ElementoDeGuardado.Estatico;
+package Api;
 
 public interface ConjuntoTDA {
 	void InicializarConjunto();

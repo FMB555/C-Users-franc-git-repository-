@@ -1,6 +1,4 @@
-package ElementosDeGuardado.Dinamico;
-
-import ElementoDeGuardado.Estatico.ConjuntoTDA;
+package Api;
 
 public interface DiccionarioMultipleDinamicoTDA {
 	void InicializarDiccionario(); 
@@ -9,4 +7,5 @@ public interface DiccionarioMultipleDinamicoTDA {
 	void EliminarValor(String clave , String valor);
 	ConjuntoTDA Recuperar(String clave); 
 	ConjuntoTDA Claves(); 
+	void Imprimir();
 }

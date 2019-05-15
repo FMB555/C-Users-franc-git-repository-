@@ -1,8 +1,8 @@
 package App;
 
-import MecanicasDeAlmacenamiento.DiccionarioMultipleDinamico;
+import Implementacion.Dinamico.DiccionarioMultipleDinamico;
 import Metodos.File;
-
+import Metodos.Ejercicio2C;
 public class main {
 
 	public static void main(String[] args) {
@@ -18,8 +18,12 @@ public class main {
 		
 		File.CargarDiccionario(dicionarioEstaciones, diccionarioCombinaciones);
 		dicionarioEstaciones.Imprimir();
-		System.out.print(" \n\n\n");
+		System.out.print(" ARRANCA EL SIGUIENTE DICCIONARIO\n\n\n");
 		diccionarioCombinaciones.Imprimir();
+		
+		Ejercicio2C algo = new Ejercicio2C();
+		algo.Ej_2_C(dicionarioEstaciones);
+		
 	}
 
 }

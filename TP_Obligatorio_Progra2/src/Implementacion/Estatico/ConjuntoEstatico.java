@@ -1,6 +1,6 @@
-package MecanicasDeAlmacenamiento;
+package Implementacion.Estatico;
 
-import ElementoDeGuardado.Estatico.ConjuntoTDA;
+import Api.ConjuntoTDA;
 
 public class ConjuntoEstatico implements ConjuntoTDA{
 	private String[] vector;

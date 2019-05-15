@@ -4,7 +4,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import MecanicasDeAlmacenamiento.DiccionarioMultipleDinamico;
+import Implementacion.Dinamico.DiccionarioMultipleDinamico;
 
 public class File {
 	
@@ -101,11 +101,11 @@ public class File {
 		
 	}
 	
-	private static void FormatoCombinacion(DiccionarioMultipleDinamico diccionario, String[] values, String archivoNombre) {
-		diccionario.Agregar(archivoNombre, values[3]);
+	private static void FormatoCombinacion(DiccionarioMultipleDinamico diccionario, String[] values, String nombre) {
+		diccionario.Agregar(nombre, ("(" + values[2]+ ";" +values[3] + ")"));
 	}
 	
-	private static void FormatoEstacion(DiccionarioMultipleDinamico diccionario, String[] values, String archivoNombre) {
-		diccionario.Agregar(archivoNombre, values[1]);
+	private static void FormatoEstacion(DiccionarioMultipleDinamico diccionario, String[] values, String nombre) {
+		diccionario.Agregar(nombre, values[1]);
 	}
 }

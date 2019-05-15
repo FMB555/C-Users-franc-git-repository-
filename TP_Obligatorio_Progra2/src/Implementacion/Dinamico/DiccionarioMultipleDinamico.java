@@ -1,7 +1,8 @@
-package MecanicasDeAlmacenamiento;
+package Implementacion.Dinamico;
 
-import ElementoDeGuardado.Estatico.ConjuntoTDA;
-import ElementosDeGuardado.Dinamico.DiccionarioMultipleDinamicoTDA;
+import Api.ConjuntoTDA;
+import Api.DiccionarioMultipleDinamicoTDA;
+import Implementacion.Estatico.ConjuntoEstatico;
 
 public class DiccionarioMultipleDinamico implements DiccionarioMultipleDinamicoTDA{
 	class Elemento{
@@ -17,21 +18,30 @@ public class DiccionarioMultipleDinamico implements DiccionarioMultipleDinamicoT
 	}
 	public void Agregar(String archivoNombre , String values){ 
 		int posC = ClaveIndice(archivoNombre);
-		if (posC==-1) { 
-			posC = cantClaves; 
-			elementos[posC]= new Elemento(); 
-			elementos[posC].clave = archivoNombre; 
-			elementos[posC].cantValores = 0; 
-			elementos[posC].valores = new String [100]; 
-			cantClaves++; 
-		}
-		Elemento e = elementos[posC]; 
-		int posV = ValorIndice(e, values); 
-		if (posV==-1) { 
-			e.valores[e.cantValores] = values;
-			e.cantValores++; 
+		if(this.Pertenece(archivoNombre, values)) {
+			if (posC==-1) { 
+				posC = cantClaves; 
+				elementos[posC]= new Elemento(); 
+				elementos[posC].clave = archivoNombre; 
+				elementos[posC].cantValores = 0; 
+				elementos[posC].valores = new String [100]; 
+				cantClaves++; 
+			}
+			Elemento e = elementos[posC]; 
+			int posV = ValorIndice(e, values); 
+			if (posV==-1) { 
+				e.valores[e.cantValores] = values;
+				e.cantValores++; 
+			}
 		}
 	}
+	
+	private boolean Pertenece(String archivoNombre , String values) {
+		ConjuntoTDA valoresExistente = this.Recuperar(archivoNombre);	
+		return !valoresExistente.Pertenece(values);
+		
+	}
+	
 	private int ClaveIndice(String clave){ 
 		int i = cantClaves-1; 	
 		while(i>=0 && elementos[i].clave!=clave) {
