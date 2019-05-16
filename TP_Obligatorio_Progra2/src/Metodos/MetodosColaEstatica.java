@@ -4,7 +4,7 @@ import Api.ConjuntoTDA;
 import Implementacion.Estatico.ConjuntoEstatico;
 
 public class MetodosColaEstatica {
-	
+
 	public static ConjuntoTDA CrearCopia(ConjuntoTDA conjuntoOriginal) {
 		ConjuntoTDA conjuntoCopia = new ConjuntoEstatico();
 		conjuntoCopia.InicializarConjunto();
@@ -29,6 +29,5 @@ public class MetodosColaEstatica {
 		
 		return conjuntoCopia;
 	}
-	
 	
 }

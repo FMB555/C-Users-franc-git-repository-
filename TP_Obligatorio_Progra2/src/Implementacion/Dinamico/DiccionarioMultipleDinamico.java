@@ -10,53 +10,38 @@ public class DiccionarioMultipleDinamico implements DiccionarioMultipleDinamicoT
 		String[] valores;
 		int cantValores;
 	}
+	
 	Elemento[] elementos; 
 	int cantClaves;
+	
 	public void InicializarDiccionario() {
 		elementos = new Elemento[100]; 
 		cantClaves = 0; 
 	}
-	public void Agregar(String archivoNombre , String values){ 
-		int posC = ClaveIndice(archivoNombre);
-		if(this.Pertenece(archivoNombre, values)) {
-			if (posC==-1) { 
-				posC = cantClaves; 
-				elementos[posC]= new Elemento(); 
-				elementos[posC].clave = archivoNombre; 
-				elementos[posC].cantValores = 0; 
-				elementos[posC].valores = new String [100]; 
-				cantClaves++; 
-			}
-			Elemento e = elementos[posC]; 
-			int posV = ValorIndice(e, values); 
-			if (posV==-1) { 
-				e.valores[e.cantValores] = values;
-				e.cantValores++; 
-			}
+	
+	public void Agregar(String clave , String valor){ 
+		int posc = this.ClaveIndice(clave);
+		if(posc == this.cantClaves) {
+			this.elementos[posc] = new Elemento();
+			this.elementos[posc].clave = clave;
+			this.elementos[posc].valores = new String [100];
+			this.elementos[posc].valores[0] = valor;
+			this.elementos[posc].cantValores = 1;
+			this.cantClaves++;
 		}
-		else
-		{
-			
-			for (int i = 0; i < this.cantClaves; i++) {
-				if(this.elementos[i].clave.compareTo(archivoNombre) == 0) {
-					this.elementos[i].valores[this.elementos[i].cantValores] = values;
-					this.elementos[i].cantValores++;
-				}
+		int j;	
+		for(j=0; j < this.elementos[posc].cantValores && this.elementos[posc].valores[j].compareTo(valor) != 0; j++);
+			if(j == this.elementos[posc].cantValores) {
+				this.elementos[posc].valores[j] = valor;
+				this.elementos[posc].cantValores++;
 			}
-			
-		}
 	}
 	
-	private boolean Pertenece(String archivoNombre , String values) {
-		ConjuntoTDA valoresExistente = this.Claves();	
-		return !valoresExistente.Pertenece(archivoNombre);
-		
-	}
-	
+
 	private int ClaveIndice(String clave){ 
-		int i = cantClaves-1; 	
-		while(i>=0 && elementos[i].clave!=clave) {
-			i--;  
+		int i = 0 ;  	
+		 while(i< this.cantClaves && elementos[i].clave.compareTo(clave) != 0) {
+			i++;  
 		}
 		return i;
 	}
@@ -123,3 +108,4 @@ public class DiccionarioMultipleDinamico implements DiccionarioMultipleDinamicoT
 	}
 
 }
+

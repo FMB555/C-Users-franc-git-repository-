@@ -24,6 +24,8 @@ public class main {
 		Ejercicio2C algo = new Ejercicio2C();
 		algo.Ej_2_C(dicionarioEstaciones);
 		
+		
+		
 	}
 
 }
